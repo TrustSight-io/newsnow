@@ -1,6 +1,11 @@
 import { motion } from "framer-motion"
-import { useTranslation } from "~/utils/i18n"
+import { useState } from "react"
 import { LanguageSwitcher } from "./LanguageSwitcher"
+import { useTranslation } from "~/utils/i18n"
+import { useDark } from "~/hooks/useDark"
+import { useLogin } from "~/hooks/useLogin"
+import { $ } from "~/utils"
+import { Homepage } from "~/consts"
 
 function ThemeToggle() {
   const { isDark, toggleDark } = useDark()
@@ -9,7 +14,7 @@ function ThemeToggle() {
     <li onClick={toggleDark}>
       <span className={$("inline-block", isDark ? "i-ph-moon-stars-duotone" : "i-ph-sun-dim-duotone")} />
       <span>
-        {isDark ? t('theme.light') : t('theme.dark')}
+        {isDark ? t("theme.light") : t("theme.dark")}
       </span>
     </li>
   )
@@ -19,7 +24,7 @@ export function Menu() {
   const { loggedIn, login, logout, userInfo, enableLogin } = useLogin()
   const [shown, show] = useState(false)
   const { t } = useTranslation()
-  
+
   return (
     <span className="relative" onMouseEnter={() => show(true)} onMouseLeave={() => show(false)}>
       <span className="flex items-center scale-90">
@@ -60,20 +65,20 @@ export function Menu() {
                 ? (
                     <li onClick={logout}>
                       <span className="i-ph:sign-out-duotone inline-block" />
-                      <span>{t('logout')}</span>
+                      <span>{t("logout")}</span>
                     </li>
                   )
                 : (
                     <li onClick={login}>
                       <span className="i-ph:sign-in-duotone inline-block" />
-                      <span>{t('login')}</span>
+                      <span>{t("login")}</span>
                     </li>
                   ))}
               <ThemeToggle />
               <LanguageSwitcher />
               <li onClick={() => window.open(Homepage)}>
                 <span className="i-ph:github-logo-duotone inline-block" />
-                <span>{t('starOnGithub')}</span>
+                <span>{t("starOnGithub")}</span>
               </li>
               <li className="flex gap-2 items-center">
                 <a

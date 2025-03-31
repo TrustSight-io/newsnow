@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from "react"
+import { type PropsWithChildren, useCallback, useMemo } from "react"
 import type { SourceID } from "@shared/types"
 import type { BaseEventPayload, ElementDragType } from "@atlaskit/pragmatic-drag-and-drop/dist/types/internal-types"
 import { extractClosestEdge } from "@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge"
@@ -8,11 +8,14 @@ import { useThrottleFn } from "ahooks"
 import { useAutoAnimate } from "@formkit/auto-animate/react"
 import { motion } from "framer-motion"
 import { useWindowSize } from "react-use"
+import { useAtom, useAtomValue } from "jotai"
+import sources from "@shared/sources"
 import { DndContext } from "../common/dnd"
 import { useSortable } from "../common/dnd/useSortable"
 import type { ItemsProps } from "./card"
 import { CardWrapper } from "./card"
-import { currentSourcesAtom } from "~/atoms"
+import { currentSourcesAtom, goToTopAtom } from "~/atoms"
+import { useEntireQuery } from "~/hooks/query"
 
 const AnimationDuration = 200
 const WIDTH = 350

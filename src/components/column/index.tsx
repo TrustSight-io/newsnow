@@ -1,5 +1,7 @@
 import type { FixedColumnID } from "@shared/types"
 import { useTitle } from "react-use"
+import { useEffect } from "react"
+import { useAtom } from "jotai"
 import { NavBar } from "../navbar"
 import { Dnd } from "./dnd"
 import { currentColumnIDAtom } from "~/atoms"
@@ -8,7 +10,7 @@ import { useLocalizedMetadata } from "~/hooks/useMetadata"
 export function Column({ id }: { id: FixedColumnID }) {
   const [currentColumnID, setCurrentColumnID] = useAtom(currentColumnIDAtom)
   const localizedMetadata = useLocalizedMetadata()
-  
+
   useEffect(() => {
     setCurrentColumnID(id)
   }, [id, setCurrentColumnID])

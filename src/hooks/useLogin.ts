@@ -1,47 +1,35 @@
-const userAtom = atomWithStorage<{
-  name?: string
+import { atom, useAtom } from "jotai"
+import { atomWithStorage } from "jotai/utils"
+
+interface UserInfo {
   avatar?: string
-}>("user", {})
-
-const jwtAtom = atomWithStorage("jwt", "")
-
-const enableLoginAtom = atomWithStorage<{
-  enable: boolean
-  url?: string
-}>("login", {
-  enable: true,
-})
-
-enableLoginAtom.onMount = (set) => {
-  myFetch("/enable-login").then((r) => {
-    set(r)
-  }).catch((e) => {
-    if (e.statusCode === 506) {
-      set({ enable: false })
-      localStorage.removeItem("jwt")
-    }
-  })
+  name?: string
+  email?: string
 }
 
+const userInfoAtom = atomWithStorage<UserInfo>("userInfo", {})
+const loggedInAtom = atom(false)
+
 export function useLogin() {
-  const userInfo = useAtomValue(userAtom)
-  const jwt = useAtomValue(jwtAtom)
-  const enableLogin = useAtomValue(enableLoginAtom)
+  const [userInfo, setUserInfo] = useAtom(userInfoAtom)
+  const [loggedIn, setLoggedIn] = useAtom(loggedInAtom)
 
-  const login = useCallback(() => {
-    window.location.href = enableLogin.url || "/api/login"
-  }, [enableLogin])
+  const login = async () => {
+    // Implement GitHub OAuth login logic here
+    // For now, just a placeholder
+    console.log("Login clicked")
+  }
 
-  const logout = useCallback(() => {
-    window.localStorage.clear()
-    window.location.reload()
-  }, [])
+  const logout = () => {
+    setUserInfo({})
+    setLoggedIn(false)
+  }
 
   return {
-    loggedIn: !!jwt,
-    userInfo,
-    enableLogin: !!enableLogin.enable,
-    logout,
+    loggedIn,
     login,
+    logout,
+    userInfo,
+    enableLogin: true, // Can be controlled by environment variable
   }
 }

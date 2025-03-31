@@ -54,3 +54,15 @@ export function isiOS() {
   ].includes(navigator.platform)
   || (navigator.userAgent.includes("Mac") && "ontouchend" in document)
 }
+
+/**
+ * Utility function to concatenate class names
+ * @param classes Array of class names or class name strings
+ * @returns Concatenated class names
+ */
+export function $(...classes: (string | string[] | false | undefined | null)[]): string {
+  return classes
+    .flat()
+    .filter(Boolean)
+    .join(" ")
+}

@@ -286,24 +286,13 @@ export const originSources = {
     type: "hottest",
     home: "https://www.baidu.com",
   },
-  "linuxdo": {
-    name: "LINUX DO",
+  "arstechnica": {
+    name: "Ars Technica",
     column: "tech",
-    color: "slate",
-    home: "https://linux.do/",
-    disable: "cf",
-    sub: {
-      latest: {
-        title: "最新",
-        home: "https://linux.do/latest",
-      },
-      hot: {
-        title: "今日最热",
-        type: "hottest",
-        interval: Time.Common,
-        home: "https://linux.do/hot",
-      },
-    },
+    color: "blue",
+    home: "https://arstechnica.com",
+    interval: Time.Common,
+    language: ["en"],
   },
 } as const satisfies Record<string, OriginSource>
 

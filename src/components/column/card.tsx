@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import { AnimatePresence, motion, useInView } from "framer-motion"
 import { useWindowSize } from "react-use"
 import { forwardRef, useImperativeHandle } from "react"
+import { useTranslation } from "react-i18next"
 import { OverlayScrollbar } from "../common/overlay-scrollbar"
 import { safeParseString } from "~/utils"
 
@@ -103,6 +104,7 @@ function NewsCard({ id, setHandleRef }: NewsCardProps) {
   })
 
   const { isFocused, toggleFocus } = useFocusWith(id)
+  useTranslation()
 
   return (
     <>
@@ -172,9 +174,10 @@ function NewsCard({ id, setHandleRef }: NewsCardProps) {
 
 function UpdatedTime({ isError, updatedTime }: { updatedTime: any, isError: boolean }) {
   const relativeTime = useRelativeTime(updatedTime ?? "")
-  if (relativeTime) return `${relativeTime}更新`
-  if (isError) return "获取失败"
-  return "加载中..."
+  const { t } = useTranslation()
+  if (relativeTime) return `${relativeTime} ${t("refresh.status")}`
+  if (isError) return t("loading.failed")
+  return t("loading")
 }
 
 function DiffNumber({ diff }: { diff: number }) {
