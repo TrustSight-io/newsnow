@@ -1,6 +1,7 @@
 import type { colors } from "unocss/preset-mini"
 import type { columns, fixedColumnIds } from "./metadata"
 import type { originSources } from "./pre-sources"
+import type { Language } from "~/utils/i18n"
 
 export type Color = "primary" | Exclude<keyof typeof colors, "current" | "inherit" | "transparent" | "black" | "white">
 
@@ -50,6 +51,7 @@ export interface OriginSource extends Partial<Omit<Source, "name" | "redirect">>
     // home?: string
     // disable?: boolean
     // interval?: number
+    // language?: Language[]
   } & Partial<Omit<Source, "title" | "name" | "redirect">>>
 }
 
@@ -77,6 +79,12 @@ export interface Source {
    */
   disable?: boolean | "cf"
   redirect?: SourceID
+  /**
+   * The languages this source supports
+   * If not specified, it's considered available in all languages
+   * @default ["en", "zh"]
+   */
+  language?: Language[]
 }
 
 export interface Column {

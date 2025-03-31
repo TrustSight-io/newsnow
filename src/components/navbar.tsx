@@ -1,10 +1,15 @@
-import { fixedColumnIds, metadata } from "@shared/metadata"
+import { fixedColumnIds } from "@shared/metadata"
 import { Link } from "@tanstack/react-router"
 import { currentColumnIDAtom } from "~/atoms"
+import { useLocalizedMetadata } from "~/hooks/useMetadata"
+import { useTranslation } from "~/utils/i18n"
 
 export function NavBar() {
   const currentId = useAtomValue(currentColumnIDAtom)
   const { toggle } = useSearchBar()
+  const { t } = useTranslation()
+  const metadata = useLocalizedMetadata()
+  
   return (
     <span className={$([
       "flex p-3 rounded-2xl bg-primary/1 text-sm",
@@ -18,7 +23,7 @@ export function NavBar() {
           "px-2 hover:(bg-primary/10 rounded-md) op-70 dark:op-90",
         )}
       >
-        更多
+        {t('more')}
       </button>
       {fixedColumnIds.map(columnId => (
         <Link

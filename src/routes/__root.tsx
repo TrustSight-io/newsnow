@@ -9,6 +9,7 @@ import { GlobalOverlayScrollbar } from "~/components/common/overlay-scrollbar"
 import { Footer } from "~/components/footer"
 import { Toast } from "~/components/common/toast"
 import { SearchBar } from "~/components/common/search-bar"
+import { useSourceFiltering } from "~/hooks/useSourceFiltering"
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient
@@ -28,6 +29,7 @@ function RootComponent() {
   useOnReload()
   useSync()
   usePWA()
+  useSourceFiltering()
   return (
     <>
       <GlobalOverlayScrollbar className={$([
